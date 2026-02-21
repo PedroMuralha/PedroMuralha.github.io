@@ -1,0 +1,705 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap'); 
+/* 1. Variáveis de Cor (Modo Claro) */
+:root {
+    --cor-fundo: #f8f4e9;
+    --cor-texto: #1a1a1a;
+    --cor-destaque: #706d64;
+    /* Adicione esta linha abaixo: */
+    --fonte-principal: 'Cormorant', serif;
+}
+
+/* 2. Variáveis de Cor (Modo Noturno automático) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --cor-fundo: #1a1a1a;    /* Fundo cinza escuro */
+        --cor-texto: #ffffff;    /* Letras brancas */
+        --cor-destaque: #bbbbbb; /* Cinza claro para textos secundários */
+    }
+}
+
+/* 3. Estilos Base */
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: var(--fonte-principal);
+    font-size: 1.25rem; /* Cormorant tem uma "altura de x" pequena, então 1.25rem fica ideal */
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Aplicando em todos os títulos e menus */
+h1, h2, h3, .logo a, nav ul.menu li a {
+    font-family: var(--fonte-principal);
+    font-weight: 600; /* Um peso semi-bold fica excelente para títulos nesta fonte */
+    letter-spacing: 0.02em;
+}
+
+/* 4. Estrutura e Alinhamento */
+
+header {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: transparent; /* Garante que não cubra a arte */
+}
+
+/* Mantemos o limite apenas no conteúdo principal para não desformatar a arte */
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+/* 5. Menu de Navegação */
+nav ul.menu {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+}
+
+nav ul.menu li a {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-size: 1.1rem;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+nav ul.menu li a:hover, 
+nav ul.menu li a.ativo {
+    opacity: 1;
+    font-weight: bold;
+    border-bottom: 2px solid var(--cor-texto); /* Sublinhado minimalista na aba ativa */
+}
+
+/* 6. Seção de Introdução (Hero) */
+.hero {
+    margin-top: 60px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.hero h2 {
+    font-size: 1.2rem;
+    color: var(--cor-destaque);
+    font-weight: normal;
+    margin-bottom: 40px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+/* 7. Botões de Contato */
+.links-contato {
+    margin-top: 50px;
+    display: flex;
+    gap: 20px;
+}
+
+.links-contato a {
+    text-decoration: none;
+    color: var(--cor-fundo);
+    background-color: var(--cor-texto);
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.links-contato a:hover {
+    transform: translateY(-3px); /* Leve animação de flutuar ao passar o mouse */
+    opacity: 0.9;
+}
+
+/* 8. Cabeçalho da página de Projetos */
+.projetos-header {
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.projetos-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+/* --- GRID DE PROJETOS QUADRADOS --- */
+
+.container-projetos {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 12vh 20px 60px;
+}
+
+.grid-projetos-quadrados {
+    display: grid;
+    /* Define colunas que se ajustam sozinhas */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.card-projeto-quadrado {
+    text-decoration: none;
+    color: var(--cor-texto);
+    border: 1px solid var(--cor-texto); /* Borda quadrada idêntica ao CV */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+/* Efeito de inversão no hover, seguindo o padrão do seu currículo */
+.card-projeto-quadrado:hover {
+    background-color: var(--cor-texto);
+    color: var(--cor-fundo);
+}
+
+.card-projeto-quadrado h2 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-transform: lowercase;
+}
+
+.card-projeto-quadrado p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+.link-falso {
+    font-weight: 700;
+    text-transform: lowercase;
+    font-size: 1rem;
+}
+
+@media (max-width: 450px) {
+    .grid-projetos-quadrados {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- NOVOS ESTILOS DO CABEÇALHO --- */
+
+header {
+    display: flex;
+    justify-content: space-between; /* Separa o logo dos botões */
+    align-items: center;
+    flex-wrap: wrap; /* Permite que o menu abra na linha de baixo */
+    position: relative;
+    padding: 20px 40px;
+}
+
+/* Estilo específico para o seu nome no canto */
+.logo a {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-family: var(--fonte-principal);
+    font-weight: 700;
+    font-style: normal; /* Garante que não fique inclinado */
+    font-size: 1.5rem;
+}
+
+/* Garante que os itens do menu também fiquem normais */
+nav ul.menu li a {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-family: var(--fonte-principal);
+    font-weight: 400;
+    font-style: normal; /* Remove itálico se houver */
+}
+
+/* Container dos botões à direita */
+.controles-topo {
+    display: flex;
+    gap: 15px;
+}
+
+/* Estilo minimalista para os botões */
+.controles-topo button {
+    background: none;
+    border: none;
+    color: var(--cor-texto);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.controles-topo button:hover {
+    opacity: 0.6;
+}
+
+/* Escondendo o menu por padrão (agora preparado para animar) */
+nav#menu-navegacao {
+    max-height: 0;          /* Começa com altura zero */
+    opacity: 0;             /* Começa invisível */
+    overflow: hidden;       /* Esconde o que vazar da altura zero */
+    width: 100%;
+    margin-top: 0;
+    /* Aqui está a mágica da fluidez: */
+    transition: max-height 0.4s ease, opacity 0.4s ease, margin-top 0.4s ease; 
+}
+
+/* Aumentamos de 200px para 300px para caber os 4 links com folga */
+nav#menu-navegacao.mostrar {
+    max-height: 300px; 
+    opacity: 1;
+    margin-top: 20px;
+}
+
+/* Ajustando o menu para ficar em formato de lista (vertical) */
+nav ul.menu {
+    flex-direction: column;
+    align-items: flex-end; /* Alinha as opções (Início/Projetos) à direita */
+    gap: 15px;
+}
+
+/* --- CLASSES PARA FORÇAR O MODO CLARO/ESCURO --- */
+body.dark-mode {
+    --cor-fundo: #1a1a1a;
+    --cor-texto: #ffffff;
+    --cor-destaque: #bbbbbb;
+}
+
+body.light-mode {
+    --cor-fundo: #f8f4e9;
+    --cor-texto: #1a1a1a;
+    --cor-destaque: #706d64;
+}
+
+/* --- ÍCONES SVG MINIMALISTAS --- */
+
+/* Ajuste fino para os botões do topo ficarem alinhados */
+.controles-topo button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px; /* Área de clique um pouco maior */
+}
+
+/* Estilo base dos ícones */
+.icone-sol, .icone-lua {
+    /* O tamanho agora é controlado pelo SVG, mas garantimos aqui */
+    width: 24px; 
+    height: 24px;
+    /* A cor já é herdada pelo "currentColor" no HTML */
+    transition: transform 0.3s ease;
+}
+
+/* Animaçãozinha extra: ícone gira levemente ao clicar */
+.controles-topo button:active .icone-sol,
+.controles-topo button:active .icone-lua {
+    transform: rotate(20deg) scale(0.9);
+}
+
+
+/* --- LÓGICA PARA MOSTRAR/ESCONDER SOL E LUA --- */
+
+/* ESTADO PADRÃO (Modo Claro): Mostra a Lua, esconde o Sol */
+.icone-sol { display: none; }
+.icone-lua { display: block; }
+
+
+/* Se a preferência do sistema for ESCURO: Inverte o padrão */
+@media (prefers-color-scheme: dark) {
+    .icone-sol { display: block; }
+    .icone-lua { display: none; }
+}
+
+
+/* OVERRIDES MANUAIS (Quando o usuário clica no botão) */
+/* O uso de !important aqui é necessário para vencer a media query acima */
+
+/* Se forçou modo escuro: Mostra SOL */
+body.dark-mode .icone-sol { display: block !important; }
+body.dark-mode .icone-lua { display: none !important; }
+
+/* Se forçou modo claro: Mostra LUA */
+body.light-mode .icone-sol { display: none !important; }
+body.light-mode .icone-lua { display: block !important; }
+
+/* --- ESTILOS DA SEÇÃO ASCII --- */
+
+.ascii-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+    /* Usando margem negativa para puxar a arte para cima: */
+    margin-top: 40px; 
+}
+
+.ascii-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Mantém tudo no meio da tela */
+    overflow: hidden; /* Essa é a trava que mata a barra de rolagem extra! */
+    margin-bottom: 30px;
+}
+
+/* Ajustes nos textos abaixo da arte */
+.ascii-hero h1 {
+    margin-bottom: 5px;
+}
+
+.ascii-hero h2 {
+    font-size: 1.1rem;
+    color: var(--cor-destaque);
+    font-weight: normal;
+    margin-top: 0;
+}
+
+/* Ajuste para o painel de controlo do Tweakpane */
+.tp-dfwv {
+    top: 80px !important; 
+    right: 20px !important;
+}
+
+/* --- EFEITOS DO SCROLL ANIMADO --- */
+
+.scroll-track {
+    height: 150vh; /* Reduzimos pela metade! Menos tempo scrollando */
+    position: relative;
+}
+
+/* Container principal colado na tela */
+.sticky-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    overflow: hidden; 
+    margin: 0;
+    padding: 0;
+}
+
+.ascii-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ascii-art {
+    font-family: 'Courier New', Courier, monospace;
+    
+    /* O SEGREDO DA RESPONSIVIDADE: */
+    /* 0.45vw significa que cada letra terá 0.45% da largura da tela. 
+       Com 180 de resolução, a imagem ocupará cerca de 80-90% da largura total. */
+    font-size: clamp(2px, 0.45vw, 6px); 
+    line-height: clamp(2px, 0.45vw, 6px);
+    
+    white-space: pre;
+    color: var(--cor-texto);
+    text-align: center;
+    margin: 0;
+}
+
+/* 2. Agora o texto está livre para colar na margem real da página */
+.intro-texto {
+    position: absolute;
+    bottom: 40px; 
+    left: 40px; /* Alinhado exatamentamente com os 40px do seu logo no topo */
+    width: 90%; 
+    max-width: 600px; 
+    text-align: left; 
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(20px); 
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    text-shadow: 0px 0px 10px var(--cor-fundo), 0px 0px 20px var(--cor-fundo);
+}
+
+/* 3. Estado final da animação */
+.intro-texto.visivel {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+/* Dá um destaque gigante para o seu nome */
+.primeiro-paragrafo {
+    font-size: 4.5rem; 
+    font-weight: 700; 
+    font-family: var(--fonte-principal);
+    line-height: 1.1;
+    color: var(--cor-texto);
+    margin-bottom: 10px; 
+    margin-top: 0;
+}
+
+/* Interesses alinhados à esquerda junto com o nome */
+.sobre-mim {
+    max-width: 500px; 
+    margin: 0; /* Removi o 'auto' para garantir que não tente centralizar */
+    font-size: 1.1rem;
+    line-height: 1.4;
+    opacity: 0.9;
+    font-style: normal; 
+}
+
+.texto-lorem p {
+    font-family: var(--fonte-principal);
+    font-size: 1.3rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.conteudo-descritivo {
+    max-width: 700px;
+    /* O valor de -40vh "anula" o espaço vazio do scroll e puxa o texto para cima */
+    margin: -3vh auto 60px; 
+    padding: 0 20px;
+    text-align: justify;
+    position: relative;
+    z-index: 10; /* Garante que o texto fique acima de qualquer camada da arte */
+}
+
+.texto-lorem p {
+    font-family: var(--fonte-principal);
+    /* Fonte reduzida de 1.4rem para 1.15rem para um visual mais técnico */
+    font-size: 1.15rem; 
+    /* Line-height mais baixo (de 1.8 para 1.6) para o texto não ficar "espalhado" */
+    line-height: 1.6; 
+    color: var(--cor-texto);
+    /* Espaço menor entre os parágrafos */
+    margin-bottom: 20px; 
+    opacity: 0.9;
+}
+
+/* 1. Força a área da arte a ocupar a tela inteira, ignorando o limite do <main> */
+.scroll-track {
+    height: 150vh; 
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%); /* Esse truque centraliza a div expansiva perfeitamente */
+}
+
+#onda-fluida {
+    display: block;
+    width: 100vw;
+    height: 450px;
+    margin-top: 30px;
+    
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+/* --- ESTILOS DA PÁGINA RESUME COMPLETA --- */
+
+.container-resume-full {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 12vh 20px 60px; /* Mantém o texto mais para cima */
+}
+
+.titulo-page {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--cor-texto);
+    display: inline-block;
+}
+
+.resume-block {
+    margin-bottom: 40px;
+}
+
+.resume-block h2 {
+    font-size: 1.6rem;
+    text-transform: lowercase;
+    color: var(--cor-destaque);
+    margin-bottom: 15px;
+}
+
+.resume-block h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.resume-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.resume-block ul {
+    list-style: none;
+    padding: 0;
+}
+
+.resume-block li {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+/* FOOTER COM LINK DE DOWNLOAD */
+.resume-footer {
+    margin-top: 60px;
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--cor-destaque);
+}
+
+.link-download {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-size: 1.2rem;
+    padding: 12px 24px;
+    border: 1px solid var(--cor-texto);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.link-download:hover {
+    background-color: var(--cor-texto);
+    color: var(--cor-fundo);
+}
+
+@media (max-width: 600px) {
+    .resume-grid { grid-template-columns: 1fr; }
+}
+
+/* --- ESTILOS DA PÁGINA CONTATO REVISADA --- */
+
+.container-contato {
+    display: flex;
+    justify-content: center;
+    padding-top: 18vh; /* Um pouco mais de respiro no topo sem o título */
+    min-height: 80vh;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.lista-contatos {
+    list-style: none;
+    padding: 0;
+}
+
+.lista-contatos li {
+    margin-bottom: 25px; /* Mais espaço entre os links longos */
+}
+
+.lista-contatos a {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-size: 1.2rem; /* Fonte levemente menor para caber URLs longas em uma linha */
+    font-weight: 300;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    word-break: break-all; /* Garante que links muito longos não "vazam" da tela no mobile */
+}
+
+.lista-contatos a:hover {
+    opacity: 1;
+    letter-spacing: 0.05rem; /* Efeito sutil de expansão em vez de deslocamento lateral */
+}
+
+/* Mobile check: diminui a fonte se a tela for muito pequena */
+@media (max-width: 480px) {
+    .lista-contatos a {
+        font-size: 1rem;
+    }
+}
+
+/* --- ESTILOS DE EXPERIÊNCIA (CURRÍCULO) --- */
+
+.item-experiencia {
+    margin-bottom: 35px;
+}
+
+.item-experiencia h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--cor-texto);
+}
+
+.periodo {
+    font-size: 1rem;
+    font-style: italic;
+    opacity: 0.6;
+    margin-bottom: 12px;
+}
+
+.item-experiencia ul {
+    list-style-type: none; /* Removemos a bolinha padrão para usar um traço minimalista */
+    padding-left: 0;
+}
+
+.item-experiencia li {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    opacity: 0.85;
+    position: relative;
+    padding-left: 15px;
+}
+
+.item-experiencia li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--cor-destaque);
+    opacity: 0.5;
+}
+
+/* --- BOTÃO DE IDIOMA --- */
+#btn-idioma {
+    font-family: var(--fonte-principal);
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: transparent;
+    border: none;
+    color: var(--cor-texto);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    padding: 0 10px;
+}
+
+#btn-idioma:hover {
+    opacity: 0.7;
+}
+
+/* Oculta textos em inglês por padrão */
+.lang-en {
+    display: none;
+}
+
+/* Quando o body tiver a classe 'modo-ingles', inverte a exibição */
+body.modo-ingles .lang-pt {
+    display: none;
+}
+body.modo-ingles .lang-en {
+    display: inline-block; /* ou block, dependendo do elemento */
+}
