@@ -703,3 +703,123 @@ body.modo-ingles .lang-pt {
 body.modo-ingles .lang-en {
     display: inline-block; /* ou block, dependendo do elemento */
 }
+
+/* --- MODAL DA GALERIA (LIGHTBOX FLUIDA) --- */
+#modal-galeria {
+    display: none; /* Oculto até ser clicado */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo escuro transparente */
+    backdrop-filter: blur(5px); /* Efeito de desfoque elegante */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Classe ativada pelo JavaScript para mostrar a galeria */
+#modal-galeria.mostrar-modal {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.imagem-modal {
+    max-width: 85%;
+    max-height: 85vh;
+    object-fit: contain; /* Garante que a imagem inteira caiba na tela */
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: #ffffff;
+    font-size: 45px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.fechar-modal:hover {
+    color: var(--cor-destaque);
+}
+
+.seta-esq, .seta-dir {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 16px;
+    color: white;
+    font-size: 30px;
+    background: rgba(0,0,0,0.2);
+    border: none;
+    transition: 0.3s ease;
+}
+
+.seta-dir { right: 20px; }
+.seta-esq { left: 20px; }
+
+.seta-esq:hover, .seta-dir:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- GRID DE MINIATURAS (A VITRINE) --- */
+#container-miniaturas {
+    display: none; /* Escondido por padrão */
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(128, 128, 128, 0.2); /* Linha sutil para separar */
+}
+
+/* --- GRID DE MINIATURAS (A VITRINE) --- */
+#container-miniaturas {
+    display: none; /* Escondido por padrão */
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(128, 128, 128, 0.2); /* Linha sutil para separar */
+}
+
+/* Classe ativada pelo JavaScript para mostrar o grid */
+#container-miniaturas.mostrar {
+    display: block;
+    animation: fadeInDown 0.6s ease forwards;
+}
+
+.grid-miniaturas {
+    display: grid;
+    /* Cria colunas flexíveis. O minmax define a largura mínima do retângulo */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.miniatura {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Formato retangular exato do Full HD */
+    object-fit: cover;
+    border: 1px solid var(--cor-texto);
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.miniatura:hover {
+    opacity: 1;
+    transform: translateY(-5px); /* Efeito suave de "flutuar" a imagem */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

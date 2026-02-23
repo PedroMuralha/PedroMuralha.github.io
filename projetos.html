@@ -15,11 +15,11 @@
         </div>
         
         <div class="controles-topo">
+            <button id="btn-idioma" aria-label="Alternar Idioma">EN</button>
             <button id="btn-tema" aria-label="Mudar tema">
                 <svg class="icone-lua" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 <svg class="icone-sol" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             </button>
-            <button id="btn-idioma" aria-label="Alternar Idioma">EN</button>
             <button id="btn-menu" aria-label="Abrir menu">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
@@ -28,8 +28,8 @@
         <nav id="menu-navegacao">
             <ul class="menu">
                 <li><a href="index.html"><span class="lang-pt">Início</span><span class="lang-en">Home</span></a></li>
-                <li><a href="projetos.html" class="ativo"><span class="lang-pt">Projetos</span><span class="lang-en">Projects</span></a></li>
                 <li><a href="curriculo.html"><span class="lang-pt">Currículo</span><span class="lang-en">Resume</span></a></li>
+                <li><a href="projetos.html" class="ativo"><span class="lang-pt">Projetos</span><span class="lang-en">Projects</span></a></li>
                 <li><a href="contato.html"><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a></li>
             </ul>
         </nav>
@@ -38,28 +38,46 @@
     <main class="container-projetos">
         <h1 class="titulo-page"><span class="lang-pt">projetos</span><span class="lang-en">projects</span></h1>
         
+        <!-- Cartão Principal -->
         <div class="grid-projetos-quadrados">
-            <a href="galeria-solidworks.html" class="card-projeto-quadrado">
+            <div id="btn-toggle-galeria" class="card-projeto-quadrado" style="cursor: pointer;">
                 <div class="info-projeto">
                     <h2><span class="lang-pt">galeria de solidworks</span><span class="lang-en">solidworks gallery</span></h2>
                     <p>
                         <span class="lang-pt">Modelagem 3D, montagens e detalhamento técnico de componentes mecânicos.</span>
                         <span class="lang-en">3D modeling, assemblies, and technical detailing of mechanical components.</span>
                     </p>
-                    <span class="link-falso"><span class="lang-pt">ver galeria —</span><span class="lang-en">view gallery —</span></span>
+                    <span class="link-falso">
+                        <span class="lang-pt" id="txt-acao-pt">ver galeria ↓</span>
+                        <span class="lang-en" id="txt-acao-en">view gallery ↓</span>
+                    </span>
                 </div>
-            </a>
+            </div>
+        </div>
+
+        <!-- A Vitrine de Miniaturas (Escondida inicialmente) -->
+        <div id="container-miniaturas">
+            <div class="grid-miniaturas" id="grid-miniaturas">
+                <!-- O JavaScript vai injetar os 20 retângulos aqui -->
+            </div>
         </div>
     </main>
 
+    <!-- Modal (A Janela Flutuante para Imagem Ampliada) -->
+    <div id="modal-galeria" class="modal-oculto">
+        <span class="fechar-modal">&times;</span>
+        <button class="seta-esq">&#10094;</button>
+        <img class="imagem-modal" id="img-destaque" src="" alt="Render SolidWorks">
+        <button class="seta-dir">&#10095;</button>
+    </div>
+
     <script>
+        // --- 1. CONFIGURAÇÕES BÁSICAS (MENU, TEMA, IDIOMA) ---
         const btnMenu = document.getElementById('btn-menu');
         const menuNavegacao = document.getElementById('menu-navegacao');
         btnMenu.addEventListener('click', () => menuNavegacao.classList.toggle('mostrar'));
 
         const body = document.body;
-
-        const btnTema = document.getElementById('btn-tema');
         const aplicarTema = (tema) => {
             body.classList.remove('light-mode', 'dark-mode');
             if (tema) body.classList.add(tema);
@@ -67,7 +85,7 @@
         const temaSalvo = localStorage.getItem('tema-escolhido');
         if (temaSalvo) aplicarTema(temaSalvo);
 
-        btnTema.addEventListener('click', () => {
+        document.getElementById('btn-tema').addEventListener('click', () => {
             let novoTema = body.classList.contains('dark-mode') ? 'light-mode' : 'dark-mode';
             aplicarTema(novoTema);
             localStorage.setItem('tema-escolhido', novoTema);
@@ -77,21 +95,90 @@
         const idiomaSalvo = localStorage.getItem('idioma-escolhido');
         if (idiomaSalvo === 'en') {
             body.classList.add('modo-ingles');
-            if(btnIdioma) btnIdioma.textContent = 'PT';
+            btnIdioma.textContent = 'PT';
         }
 
-        if(btnIdioma) {
-            btnIdioma.addEventListener('click', () => {
-                body.classList.toggle('modo-ingles');
-                if (body.classList.contains('modo-ingles')) {
-                    btnIdioma.textContent = 'PT';
-                    localStorage.setItem('idioma-escolhido', 'en');
-                } else {
-                    btnIdioma.textContent = 'EN';
-                    localStorage.setItem('idioma-escolhido', 'pt');
-                }
+        btnIdioma.addEventListener('click', () => {
+            body.classList.toggle('modo-ingles');
+            if (body.classList.contains('modo-ingles')) {
+                btnIdioma.textContent = 'PT';
+                localStorage.setItem('idioma-escolhido', 'en');
+            } else {
+                btnIdioma.textContent = 'EN';
+                localStorage.setItem('idioma-escolhido', 'pt');
+            }
+        });
+
+        // --- 2. LÓGICA DA GALERIA (GRID + MODAL) ---
+        const imagensSW = [
+            'pecas/Solid (1).png', 'pecas/Solid (2).png', 'pecas/Solid (3).png', 'pecas/Solid (4).png',
+            'pecas/Solid (5).png', 'pecas/Solid (6).png', 'pecas/Solid (7).png', 'pecas/Solid (8).png',
+            'pecas/Solid (9).png', 'pecas/Solid (10).png', 'pecas/Solid (11).png', 'pecas/Solid (12).png',
+            'pecas/Solid (13).png', 'pecas/Solid (14).png', 'pecas/Solid (15).png', 'pecas/Solid (16).png',
+            'pecas/Solid (17).png', 'pecas/Solid (18).png', 'pecas/Solid (19).png', 'pecas/Solid (20).png'
+        ];
+
+        const btnToggleGaleria = document.getElementById('btn-toggle-galeria');
+        const containerMiniaturas = document.getElementById('container-miniaturas');
+        const gridMiniaturas = document.getElementById('grid-miniaturas');
+        
+        const modal = document.getElementById('modal-galeria');
+        const imgDestaque = document.getElementById('img-destaque');
+        let indiceAtual = 0;
+
+        // Gera as 20 miniaturas no HTML dinamicamente
+        imagensSW.forEach((imgSrc, index) => {
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.classList.add('miniatura');
+            img.loading = "lazy"; // Carrega a imagem só quando ela aparecer na tela
+            
+            // Quando clica na miniatura, abre o modal
+            img.addEventListener('click', () => {
+                abrirModal(index);
             });
+            gridMiniaturas.appendChild(img);
+        });
+
+        // Botão que expande/recolhe a vitrine
+        btnToggleGaleria.addEventListener('click', () => {
+            containerMiniaturas.classList.toggle('mostrar');
+            
+            // Troca o texto de "ver galeria" para "esconder galeria"
+            const txtPt = document.getElementById('txt-acao-pt');
+            const txtEn = document.getElementById('txt-acao-en');
+            
+            if (containerMiniaturas.classList.contains('mostrar')) {
+                txtPt.textContent = 'fechar galeria ↑';
+                txtEn.textContent = 'close gallery ↑';
+            } else {
+                txtPt.textContent = 'ver galeria ↓';
+                txtEn.textContent = 'view gallery ↓';
+            }
+        });
+
+        // Função para abrir imagem ampliada
+        function abrirModal(index) {
+            indiceAtual = index;
+            imgDestaque.src = imagensSW[indiceAtual];
+            modal.classList.add('mostrar-modal');
         }
+
+        // Fechar Modal (X ou clicando no fundo)
+        document.querySelector('.fechar-modal').addEventListener('click', () => modal.classList.remove('mostrar-modal'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('mostrar-modal');
+        });
+
+        // Setas do Modal
+        document.querySelector('.seta-dir').addEventListener('click', () => {
+            indiceAtual = (indiceAtual + 1) % imagensSW.length;
+            imgDestaque.src = imagensSW[indiceAtual];
+        });
+        document.querySelector('.seta-esq').addEventListener('click', () => {
+            indiceAtual = (indiceAtual - 1 + imagensSW.length) % imagensSW.length;
+            imgDestaque.src = imagensSW[indiceAtual];
+        });
     </script>
 </body>
 </html>
