@@ -823,3 +823,101 @@ body.modo-ingles .lang-en {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* =========================================
+   AJUSTES FINOS PARA CELULAR (MOBILE)
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* 1. Alinha o logo e os botões perfeitamente na mesma linha */
+    header {
+        display: flex;
+        justify-content: space-between; /* Joga o logo pra esquerda e os botões pra direita */
+        align-items: center; /* Centraliza na vertical */
+        padding: 15px 20px; 
+    }
+
+    .controles-topo {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Dá um respiro entre o botão de idioma, tema e o menu */
+    }
+
+    /* 2. Puxa a arte ASCII para cima */
+    #canvas-container {
+        height: 50vh; /* Reduzimos um pouco a altura da 'caixa' da arte */
+        min-height: 350px;
+        margin-top: -40px; /* Esse é o segredo: puxa o desenho inteiro para perto do cabeçalho */
+        display: flex;
+        align-items: flex-start; /* Faz a arte nascer do topo da caixa, e não do meio */
+    }
+
+    /* 3. O texto flui naturalmente abaixo, sem invadir a arte */
+    .conteudo-descritivo {
+        margin-top: 0; /* Zeramos aquele número negativo de antes */
+        padding: 0 20px; 
+    }
+}
+
+/* =========================================
+   AJUSTES PARA CELULAR (MOBILE)
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* 1. Alinha o logo e os botões perfeitamente na mesma linha */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        position: relative;
+    }
+
+    .controles-topo {
+        display: flex;
+        align-items: center;
+        gap: 15px; 
+    }
+
+    /* 2. Transforma o Menu em Hambúrguer */
+    #btn-menu {
+        display: block; 
+    }
+
+    #menu-navegacao {
+        display: none; 
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: var(--cor-fundo);
+        padding: 20px 0;
+        border-bottom: 1px solid var(--cor-texto);
+        z-index: 1000;
+    }
+
+    #menu-navegacao.mostrar {
+        display: block;
+    }
+
+    .menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* 3. Aumenta o espaço da arte ASCII */
+    #canvas-container {
+        height: 65vh; /* Aumentamos de 45 para 65% da tela */
+        min-height: 450px; /* Aumentamos a altura mínima */
+        margin-top: 0px; /* Tiramos a margem negativa que puxava pra cima */
+        display: flex;
+        align-items: center; /* Centraliza a arte no novo espaço maior */
+    }
+
+    /* 4. Joga o texto mais para baixo */
+    .conteudo-descritivo {
+        margin-top: 40px; /* Dá um 'empurrão' extra de 40 pixels para baixo */
+        padding: 0 20px; 
+    }
+}
