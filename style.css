@@ -829,60 +829,52 @@ body.modo-ingles .lang-en {
    ========================================= */
 @media (max-width: 768px) {
     
-    /* 1. Alinha o logo e os botões perfeitamente na mesma linha */
+    /* 1. Alinhamento perfeito do cabeçalho */
     header {
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
         align-items: center;
         padding: 15px 20px;
-        position: relative;
+    }
+
+    .logo a {
+        font-size: 1.4rem;
+        white-space: nowrap;
     }
 
     .controles-topo {
         display: flex;
         align-items: center;
-        gap: 15px; 
+        gap: 12px; 
     }
 
-    /* 2. Transforma o Menu em Hambúrguer */
-    #btn-menu {
-        display: block; 
-    }
-
-    #menu-navegacao {
-        display: none; 
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: var(--cor-fundo);
-        padding: 20px 0;
-        border-bottom: 1px solid var(--cor-texto);
-        z-index: 1000;
-    }
-
-    #menu-navegacao.mostrar {
-        display: block;
-    }
-
-    .menu {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    /* 3. Aumenta o espaço da arte ASCII */
-    #canvas-container {
-        height: 65vh; /* Aumentamos de 45 para 65% da tela */
-        min-height: 450px; /* Aumentamos a altura mínima */
-        margin-top: 0px; /* Tiramos a margem negativa que puxava pra cima */
+    /* O segredo do alinhamento: forçar os botões a centralizarem seus ícones internamente */
+    .controles-topo button {
         display: flex;
-        align-items: center; /* Centraliza a arte no novo espaço maior */
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        transform: scale(0.9);
     }
 
-    /* 4. Joga o texto mais para baixo */
+    /* 2. Reduz o espaço vermelho acima da arte */
+    #canvas-container {
+        height: 55vh; /* Diminuímos a altura da 'caixa' invisível que envolvia a arte */
+        min-height: 350px; 
+        display: flex;
+        align-items: center;
+        margin-top: -10px; /* Puxa a arte suavemente para perto do cabeçalho */
+    }
+
+    /* 3. Reduz o espaço vermelho entre os textos e puxa tudo pra cima */
     .conteudo-descritivo {
-        margin-top: 40px; /* Dá um 'empurrão' extra de 40 pixels para baixo */
-        padding: 0 20px; 
+        margin-top: -20px; /* Puxa o bloco de texto inteiro para mais perto da arte */
+        padding: 0 20px;
+    }
+
+    .conteudo-descritivo p {
+        margin-bottom: 15px; /* Diminui o buraco entre o primeiro e o segundo parágrafo */
     }
 }
