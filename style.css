@@ -825,41 +825,6 @@ body.modo-ingles .lang-en {
 }
 
 /* =========================================
-   AJUSTES FINOS PARA CELULAR (MOBILE)
-   ========================================= */
-@media (max-width: 768px) {
-    
-    /* 1. Alinha o logo e os botões perfeitamente na mesma linha */
-    header {
-        display: flex;
-        justify-content: space-between; /* Joga o logo pra esquerda e os botões pra direita */
-        align-items: center; /* Centraliza na vertical */
-        padding: 15px 20px; 
-    }
-
-    .controles-topo {
-        display: flex;
-        align-items: center;
-        gap: 15px; /* Dá um respiro entre o botão de idioma, tema e o menu */
-    }
-
-    /* 2. Puxa a arte ASCII para cima */
-    #canvas-container {
-        height: 50vh; /* Reduzimos um pouco a altura da 'caixa' da arte */
-        min-height: 350px;
-        margin-top: -40px; /* Esse é o segredo: puxa o desenho inteiro para perto do cabeçalho */
-        display: flex;
-        align-items: flex-start; /* Faz a arte nascer do topo da caixa, e não do meio */
-    }
-
-    /* 3. O texto flui naturalmente abaixo, sem invadir a arte */
-    .conteudo-descritivo {
-        margin-top: 0; /* Zeramos aquele número negativo de antes */
-        padding: 0 20px; 
-    }
-}
-
-/* =========================================
    AJUSTES PARA CELULAR (MOBILE)
    ========================================= */
 @media (max-width: 768px) {
