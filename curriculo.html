@@ -95,8 +95,8 @@
             </div>
 
             <div class="resume-footer">
-                <a href="PedroMuralhaCV.pdf" class="link-download" download>
-                    <span class="lang-pt">baixar cv completo (pdf)</span><span class="lang-en">download full resume (pdf)</span>
+                <a href="PedroMuralhaCV.pdf" id="link-cv" class="link-download" download>
+                    <span class="lang-pt">baixar cv completo (pdf)</span><span class="lang-en">download full cv (pdf)</span>
                 </a>
             </div>
         </section>
@@ -123,22 +123,32 @@
             localStorage.setItem('tema-escolhido', novoTema);
         });
 
+        // --- LÓGICA DE IDIOMA E TROCA DO PDF ---
         const btnIdioma = document.getElementById('btn-idioma');
+        const linkCV = document.getElementById('link-cv'); // Encontra o botão do PDF
+
         const idiomaSalvo = localStorage.getItem('idioma-escolhido');
+        
+        // Verifica ao carregar a página
         if (idiomaSalvo === 'en') {
             body.classList.add('modo-ingles');
             if(btnIdioma) btnIdioma.textContent = 'PT';
+            if(linkCV) linkCV.href = 'PedroMuralhaCV_EN.pdf'; // Se já estiver em inglês, puxa o PDF EN
         }
 
+        // Verifica quando o usuário clica no botão
         if(btnIdioma) {
             btnIdioma.addEventListener('click', () => {
                 body.classList.toggle('modo-ingles');
+                
                 if (body.classList.contains('modo-ingles')) {
                     btnIdioma.textContent = 'PT';
                     localStorage.setItem('idioma-escolhido', 'en');
+                    if(linkCV) linkCV.href = 'PedroMuralhaCV_EN.pdf'; // Troca pro PDF EN
                 } else {
                     btnIdioma.textContent = 'EN';
                     localStorage.setItem('idioma-escolhido', 'pt');
+                    if(linkCV) linkCV.href = 'PedroMuralhaCV.pdf'; // Volta pro PDF PT
                 }
             });
         }
